@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+gmail/__init__.py
+gmail/auth.py
+gmail/service.py
+gmail_mcp_server.egg-info/PKG-INFO
+gmail_mcp_server.egg-info/SOURCES.txt
+gmail_mcp_server.egg-info/dependency_links.txt
+gmail_mcp_server.egg-info/requires.txt
+gmail_mcp_server.egg-info/top_level.txt
