@@ -1,6 +1,35 @@
-.idea/
+# Entornos y configuración de IDE
 .venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Archivos de Python compilados y caché
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de entorno y configuración local
 .env
+*.env
+
+# Salidas de build y distribución
 dist/
+build/
+*.egg-info/
+.eggs/
+
 gmail_mcp_server.egg-info/
+
+# Cachés y temporales de herramientas
+.mypy_cache/
+.pytest_cache/
+.coverage
+*.log
+
+# Otros archivos que puedes querer ignorar
+*.sqlite3
+.DS_Store
+Thumbs.db
