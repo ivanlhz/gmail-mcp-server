@@ -1,5 +1,13 @@
 # gmail-mcp-server
 
+[![GitHub stars](https://img.shields.io/github/stars/ivanlhz/gmail-mcp-server?style=social)](https://github.com/ivanlhz/gmail-mcp-server/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/ivanlhz/gmail-mcp-server)](https://github.com/ivanlhz/gmail-mcp-server/issues)
+[![GitHub forks](https://img.shields.io/github/forks/ivanlhz/gmail-mcp-server?style=social)](https://github.com/ivanlhz/gmail-mcp-server/network/members)
+[![MIT License](https://img.shields.io/github/license/ivanlhz/gmail-mcp-server)](https://github.com/ivanlhz/gmail-mcp-server/blob/master/LICENSE)
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/downloads/release/python-3110/)
+
+Repositorio oficial: [https://github.com/ivanlhz/gmail-mcp-server](https://github.com/ivanlhz/gmail-mcp-server)
+
 Servidor para exponer la API de Gmail mediante el Model Context Protocol (MCP), diseñado para su integración con LLMs y uso en entornos como Claude Desktop.
 
 ## Descripción
@@ -125,6 +133,12 @@ Consulta la [documentación oficial de uv](https://github.com/astral-sh/uv) para
 - [dotenv (python-dotenv)](https://saurabh-kumar.com/python-dotenv/)
 - [mcp[cli] (Model Context Protocol CLI)](https://modelcontextprotocol.io/docs/cli)
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/)
+
+## Comunidad y contribución
+
+- ¿Tienes dudas, sugerencias o encontraste un bug? Abre un [issue](https://github.com/ivanlhz/gmail-mcp-server/issues).
+- ¿Quieres contribuir? Haz un fork y envía tu pull request. ¡Las contribuciones son bienvenidas!
+- Para cualquier consulta, también puedes abrir una discusión en la pestaña [Discussions](https://github.com/ivanlhz/gmail-mcp-server/discussions) del repositorio.
 
 ## Notas
 - Si deseas publicar el paquete en PyPI, consulta la guía oficial enlazada arriba.
