@@ -74,6 +74,21 @@ Este proyecto utiliza [uv](https://github.com/astral-sh/uv) para gestionar las d
 
 Consulta la [documentación oficial de uv](https://github.com/astral-sh/uv) para más detalles.
 
+## Obtener credenciales de Google (GOOGLE_CLIENT_ID y SECRET)
+
+Para que el servidor pueda acceder a la API de Gmail, necesitas crear credenciales OAuth 2.0 en Google Cloud:
+
+1. Ve a la [Google Cloud Console](https://console.cloud.google.com/).
+2. Crea un nuevo proyecto o selecciona uno existente.
+3. Ve a "APIs y servicios" > "Biblioteca" y busca "Gmail API". Haz clic en "Habilitar".
+4. Ve a "APIs y servicios" > "Credenciales" y haz clic en "Crear credenciales" > "ID de cliente de OAuth".
+5. Selecciona "Aplicación de escritorio" como tipo de aplicación.
+6. Asigna un nombre y haz clic en "Crear".
+7. Descarga el archivo JSON, ábrelo y copia los valores de `client_id` y `client_secret`.
+8. Usa estos valores como variables de entorno `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET` al lanzar el servidor.
+
+Más información en la [guía oficial de Google](https://developers.google.com/identity/protocols/oauth2?hl=es).
+
 ## Integración con Claude Desktop y otros clientes MCP
 
 ### Windows
@@ -82,21 +97,38 @@ Consulta la [documentación oficial de uv](https://github.com/astral-sh/uv) para
   C:\Users\<usuario>\develop\proyectos\mcp\gmail-mcp-server\.venv\Scripts\gmail-mcp-server.exe
   ```
 - Puedes ejecutarlo directamente desde esa ruta o añadir `.venv\Scripts\` al PATH para poder usar `gmail-mcp-server` desde cualquier terminal.
+- **Si has añadido la carpeta de scripts al PATH** (recomendado):
+  Ahora puedes usar simplemente `gmail-mcp-server` como comando global en cualquier terminal.
 - **Recomendación para Claude Desktop:**
   En tu configuración (por ejemplo, `claude.config.json`):
-  ```json
-  {
-    "mcpServers": {
-      "gmail": {
-        "command": "C:\\Users\\<usuario>\\develop\\proyectos\\mcp\\gmail-mcp-server\\.venv\\Scripts\\gmail-mcp-server.exe",
-        "env": {
-          "GOOGLE_CLIENT_ID": "TU_ID",
-          "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+  - Si NO tienes el PATH configurado:
+    ```json
+    {
+      "mcpServers": {
+        "gmail": {
+          "command": "C:\\Users\\<usuario>\\develop\\proyectos\\mcp\\gmail-mcp-server\\.venv\\Scripts\\gmail-mcp-server.exe",
+          "env": {
+            "GOOGLE_CLIENT_ID": "TU_ID",
+            "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+          }
         }
       }
     }
-  }
-  ```
+    ```
+  - Si SÍ tienes el PATH configurado:
+    ```json
+    {
+      "mcpServers": {
+        "gmail": {
+          "command": "gmail-mcp-server",
+          "env": {
+            "GOOGLE_CLIENT_ID": "TU_ID",
+            "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+          }
+        }
+      }
+    }
+    ```
 - Cambia `<usuario>` por tu nombre de usuario de Windows y completa tus credenciales.
 
 ### Mac/Linux
@@ -104,25 +136,49 @@ Consulta la [documentación oficial de uv](https://github.com/astral-sh/uv) para
   ```
   /ruta/a/tu/proyecto/.venv/bin/gmail-mcp-server
   ```
-- Puedes ejecutarlo directamente desde esa ruta o añadir `.venv/bin/` al PATH para usar `gmail-mcp-server` desde cualquier terminal.
+- Puedes ejecutarlo directamente desde esa ruta.
+
+**Para agregar el ejecutable al PATH de forma permanente:**
+1. Abre tu archivo de configuración de shell (`~/.bashrc`, `~/.zshrc`, etc.).
+2. Añade la línea:
+   ```bash
+   export PATH="/ruta/a/tu/proyecto/.venv/bin:$PATH"
+   ```
+3. Guarda el archivo y ejecuta `source ~/.bashrc` o `source ~/.zshrc` (según tu shell), o reinicia la terminal.
+
+Ahora podrás usar simplemente `gmail-mcp-server` como comando global.
+
 - **Recomendación para Claude Desktop:**
-  En tu configuración:
-  ```json
-  {
-    "mcpServers": {
-      "gmail": {
-        "command": "/ruta/a/tu/proyecto/.venv/bin/gmail-mcp-server",
-        "env": {
-          "GOOGLE_CLIENT_ID": "TU_ID",
-          "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+  - Si NO tienes el PATH configurado:
+    ```json
+    {
+      "mcpServers": {
+        "gmail": {
+          "command": "/ruta/a/tu/proyecto/.venv/bin/gmail-mcp-server",
+          "env": {
+            "GOOGLE_CLIENT_ID": "TU_ID",
+            "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+          }
         }
       }
     }
-  }
-  ```
+    ```
+  - Si SÍ tienes el PATH configurado:
+    ```json
+    {
+      "mcpServers": {
+        "gmail": {
+          "command": "gmail-mcp-server",
+          "env": {
+            "GOOGLE_CLIENT_ID": "TU_ID",
+            "GOOGLE_CLIENT_SECRET": "TU_SECRET"
+          }
+        }
+      }
+    }
+    ```
 - Cambia `/ruta/a/tu/proyecto/` por la ruta real y completa tus credenciales.
 
-- Si añades la carpeta de scripts (`.venv\Scripts\` en Windows, `.venv/bin/` en Mac/Linux) al PATH, podrás usar simplemente `gmail-mcp-server` como comando.
 - Tras cualquier cambio, reinicia Claude Desktop para que detecte y ejecute el servidor MCP correctamente.
 
 ## Referencias
