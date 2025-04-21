@@ -224,6 +224,3 @@ Ahora podrás usar simplemente `gmail-mcp-server` como comando global.
 - ¿Quieres contribuir? Haz un fork y envía tu pull request. ¡Las contribuciones son bienvenidas!
 - Para cualquier consulta, también puedes abrir una discusión en la pestaña [Discussions](https://github.com/ivanlhz/gmail-mcp-server/discussions) del repositorio.
 
-## Notas
-- Si deseas publicar el paquete en PyPI, consulta la guía oficial enlazada arriba.
-- Puedes crear un entry point para ejecutar el servidor desde la terminal si lo necesitas. Pide ayuda si quieres añadir esta funcionalidad.
