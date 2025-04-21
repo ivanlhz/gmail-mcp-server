@@ -21,4 +21,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-gmail-mcp-server = "gmail.main:main"
+gmail-mcp-server = "gmail_mcp_server.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["gmail_mcp_server", "gmail"]

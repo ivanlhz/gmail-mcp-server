@@ -36,8 +36,15 @@ def get_emails_details(query: str):
     except Exception as error:
         return f'Error: {error}'
 
+def main():
+    """Entry point para ejecutar el servidor MCP de Gmail."""
+    mcp.run(transport='stdio')
 
+import sys
 
 if __name__ == "__main__":
-    # Initialize and run the server
-    mcp.run(transport='stdio')
+    try:
+        main()
+    except Exception as e:
+        print(f"[ERROR] {e}", file=sys.stderr)
+        raise
