@@ -1,3 +1,4 @@
+from typing import List
 from mcp.server.fastmcp import FastMCP
 
 from gmail.auth import authenticate_gmail
@@ -105,30 +106,78 @@ def update_label(label_id: str, name: str, bg_color: str = "#4a86e8", text_color
         return f'Error updating label: {error}'
 
 @mcp.tool()
-def get_emails_details(query: str):
-    """Get emails details from gmail
+def mark_emails_as_read(emails_ids: List[str]):
+    """
+    Mark all emails as read.
     Args:
-        query: gmail query string
+        emails_ids: list of string of emails ids to mark as read
     """
     try:
-        results = service.list_messages(query)
+        return service.batch_modify_message(msg_ids=emails_ids, labels_to_remove=['UNREAD'])
+    except Exception as error:
+        return f'Error: {error}'
 
-        if not results:
-            return []
-        else:
-            messages_data = []
-            for message in results:
-                message_id = message['id']
-                details = service.get_message_details(message_id)
-                messages_data.append({
-                    'message_id': message_id,
-                    'subject': details['headers']['subject'],
-                    'from': details['headers']['from'],
-                    'to': details['headers']['to'],
-                    'date': details['headers']['date'],
-                    'body': details['body'],
-                })
-            return messages_data
+@mcp.tool()
+def mark_emails_as_unread(emails_ids: List[str]):
+    """
+    Mark all emails as unread.
+    Args:
+        emails_ids: list of email ids to mark as unread
+    """
+    try:
+        return service.batch_modify_message(msg_ids=emails_ids, labels_to_add=['UNREAD'])
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
+def add_labels(emails_ids: List[str], labels: List[str]):
+    """
+    Assign all emails sent with the labels.
+    Args:
+        emails_ids: list of email ids to mark as unread
+        labels: list of labels to assign to each email
+    """
+    try:
+        return service.batch_modify_message(msg_ids=emails_ids, labels_to_add=labels)
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
+def trash_email(email_id: str):
+    """
+    Thrash an email.
+    Args:
+        email_id: email id to move to the trash
+    """
+    try:
+        return service.trash_message(email_id)
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
+def get_all_emails_ids_by_query(query: str, max_results: int, next_page_token: str = None):
+    """Get a list of emails details from gmail paginated results.
+    Args:
+        query: gmail query string
+        max_results: number of max emails to return. The maximum allowed value for this field is 500.
+        if there results includes nextPageToken you need to call again this tool using the next_page_token parameter.
+        next_page_token: use in case of get nextPageToken in a previous request to get next page data.
+    """
+    try:
+        results = service.list_messages(query, max_results=max_results, page_token = next_page_token)
+        return results
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
+def get_email_detail(email_id: str):
+    """Get an email details from gmail
+    Args:
+        email_id: gmail id of email to get details
+    """
+    try:
+        results = service.get_message_details(email_id)
+        return results
     except Exception as error:
         return f'Error: {error}'
 

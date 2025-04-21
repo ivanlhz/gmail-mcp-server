@@ -15,13 +15,39 @@ class GmailService:
     def __init__(self, service: Resource):
         self.service = service
 
-    def list_messages(self, query='', max_results=10)-> List[Dict[str, Any]]:
-        response = self.service.users().messages().list(userId='me', q=query, maxResults=max_results).execute()
-        return response['messages']
+    def list_messages(self, query='', max_results=10, page_token=None):
+        response = self.service.users().messages().list(userId='me', q=query, maxResults=max_results, pageToken=page_token).execute()
+        return response
 
     def get_message_details(self, message_id):
         response = self.service.users().messages().get(userId='me', id=message_id).execute()
         return {'headers': self._get_headers(response), 'body': self._get_body(response)}
+
+    def trash_message(self, message_id: str):
+        response = self.service.users().messages().trash(userId='me', id=message_id).execute()
+        return response
+
+    def modify_message(self, msg_id:str, labels_to_remove: List[str], labels_to_add: List[str]):
+        response = self.service.users().messages().modify(
+            userId='me',
+            id=msg_id,
+            body={
+                'removeLabelIds': labels_to_remove,
+                'addLabelIds': labels_to_add,
+            }
+        ).execute()
+        return response
+
+    def batch_modify_message(self, msg_ids:List[str], labels_to_remove: List[str] = None, labels_to_add: List[str] = None):
+        response = self.service.users().messages().batchModify(
+            userId='me',
+            body={
+                'ids': msg_ids,
+                'removeLabelIds': labels_to_remove,
+                'addLabelIds': labels_to_add,
+            }
+        ).execute()
+        return response
 
     def get_labels(self):
         response = self.service.users().labels().list(userId='me').execute()

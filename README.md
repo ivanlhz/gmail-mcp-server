@@ -17,14 +17,18 @@ Este proyecto permite exponer la API de Gmail vía MCP, facilitando su integraci
 
 El servidor expone las siguientes tools MCP para interactuar con Gmail:
 
-| Tool                | Descripción                                                                                             |
-|---------------------|--------------------------------------------------------------------------------------------------------|
-| `get_labels()`      | Obtiene todas las etiquetas del usuario Gmail.                                                          |
-| `get_label_by_id(label_id)` | Obtiene los datos de una etiqueta específica a partir de su ID.                                 |
-| `create_label(name, bg_color="#4a86e8", text_color="#ffffff")` | Crea una nueva etiqueta en Gmail con nombre y colores opcionales. |
-| `update_label(label_id, name, bg_color="#4a86e8", text_color="#ffffff")` | Actualiza una etiqueta existente.                  |
-| `delete_label(label_id)` | Elimina una etiqueta de Gmail a partir de su ID.                                                   |
-| `get_emails_details(query)` | Recupera detalles (asunto, remitente, destinatario, fecha, cuerpo) de emails que cumplan una consulta de Gmail. |
+| Tool                                       | Descripción                                                                                               |
+|--------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `get_labels()`                            | Obtiene todas las etiquetas del usuario Gmail.                                                          |
+| `get_label_by_id(label_id)`                | Obtiene los datos de una etiqueta específica a partir de su ID.                                          |
+| `create_label(name, bg_color, text_color)` | Crea una nueva etiqueta en Gmail con nombre y colores opcionales.                                        |
+| `update_label(label_id, name, bg_color, text_color)` | Actualiza una etiqueta existente.                                                    |
+| `delete_label(label_id)`                   | Elimina una etiqueta de Gmail a partir de su ID.                                                         |
+| `mark_emails_as_read(emails_ids: List[str])`     | Marca como leídos los emails cuyo ID se pase en la lista.                                                |
+| `mark_emails_as_unread(emails_ids: List[str])`   | Marca como no leídos los emails cuyo ID se pase en la lista.                                             |
+| `add_labels(emails_ids: List[str], labels: List[str])` | Asigna una o varias etiquetas a todos los emails indicados en la lista de IDs.                         |
+| `get_all_emails_ids_by_query(query: str, max_results: int, next_page_token: str = None)` | Devuelve una lista paginada de IDs de emails según la consulta de Gmail. Usa `next_page_token` para paginar. |
+| `get_email_detail(email_id: str)`          | Devuelve los detalles completos de un email específico por su ID.                                        |
 
 
 ## Estructura del proyecto
