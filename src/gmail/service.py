@@ -8,6 +8,9 @@ import base64
 from typing import List, Dict, Any
 from googleapiclient.discovery import Resource
 
+from gmail.models.label_model import GmailLabel
+
+
 class GmailService:
     def __init__(self, service: Resource):
         self.service = service
@@ -23,6 +26,22 @@ class GmailService:
     def get_labels(self):
         response = self.service.users().labels().list(userId='me').execute()
         return response['labels']
+
+    def get_label(self, label_id: str):
+        response = self.service.users().labels().get(userId='me', id=label_id).execute()
+        return response
+
+    def create_label(self, label: GmailLabel):
+        response = self.service.users().labels().create(userId='me',body=label.model_dump(exclude_none=True)).execute()
+        return response
+
+    def update_label(self, label_id: str, label: GmailLabel):
+        response = self.service.users().labels().update(userId='me', id=label_id, body=label.model_dump(exclude_none=True)).execute()
+
+        return response['label']
+    def delete_label(self, label_id: str):
+        response = self.service.users().labels().delete(userId='me',id=label_id).execute()
+        return response
 
     @staticmethod
     def _get_headers(message):

@@ -13,15 +13,39 @@ Servidor para exponer la API de Gmail mediante el Model Context Protocol (MCP), 
 ## Descripción
 Este proyecto permite exponer la API de Gmail vía MCP, facilitando su integración con LLMs y uso en entornos como Claude Desktop.
 
+## Tools MCP disponibles
+
+El servidor expone las siguientes tools MCP para interactuar con Gmail:
+
+| Tool                | Descripción                                                                                             |
+|---------------------|--------------------------------------------------------------------------------------------------------|
+| `get_labels()`      | Obtiene todas las etiquetas del usuario Gmail.                                                          |
+| `get_label_by_id(label_id)` | Obtiene los datos de una etiqueta específica a partir de su ID.                                 |
+| `create_label(name, bg_color="#4a86e8", text_color="#ffffff")` | Crea una nueva etiqueta en Gmail con nombre y colores opcionales. |
+| `update_label(label_id, name, bg_color="#4a86e8", text_color="#ffffff")` | Actualiza una etiqueta existente.                  |
+| `delete_label(label_id)` | Elimina una etiqueta de Gmail a partir de su ID.                                                   |
+| `get_emails_details(query)` | Recupera detalles (asunto, remitente, destinatario, fecha, cuerpo) de emails que cumplan una consulta de Gmail. |
+
+
 ## Estructura del proyecto
 ```
 .
-├── gmail/               # Código fuente del módulo
-│   └── __init__.py
-├── main.py              # Script principal (puede usarse como entry point)
-├── pyproject.toml       # Configuración del paquete
-├── README.md            # Este archivo
-└── ...
+├── src/
+│   ├── gmail/                   # Lógica de integración con Gmail
+│   │   ├── __init__.py
+│   │   ├── auth.py              # Autenticación y OAuth
+│   │   ├── service.py           # Lógica de negocio (mensajes, etiquetas)
+│   │   └── models/
+│   │       └── label_model.py   # Modelos de etiquetas de Gmail
+│   ├── gmail_mcp_server/
+│   │   ├── __init__.py
+│   │   └── main.py              # Punto de entrada MCP y definición de tools
+│   └── gmail_mcp_server.egg-info/ # Info de empaquetado
+├── pyproject.toml               # Configuración del paquete y dependencias
+├── uv.lock                      # Lockfile de dependencias (usado por uv)
+├── README.md                    # Este archivo
+├── LICENSE                      # Licencia MIT
+└── .venv/                       # Entorno virtual (no versionar)
 ```
 
 ## Requisitos
