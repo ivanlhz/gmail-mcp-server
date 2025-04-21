@@ -7,6 +7,16 @@ from gmail.service import GmailService
 mcp = FastMCP("gmail-mcp-server")
 
 @mcp.tool()
+def get_labels():
+    """Get labels from gmail"""
+    try:
+        api = authenticate_gmail()
+        service = GmailService(api)
+        return service.get_labels()
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
 def get_emails_details(query: str):
     """Get emails details from gmail
     Args:

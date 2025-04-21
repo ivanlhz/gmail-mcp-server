@@ -20,6 +20,10 @@ class GmailService:
         response = self.service.users().messages().get(userId='me', id=message_id).execute()
         return {'headers': self._get_headers(response), 'body': self._get_body(response)}
 
+    def get_labels(self):
+        response = self.service.users().labels().list(userId='me').execute()
+        return response['labels']
+
     @staticmethod
     def _get_headers(message):
         headers = message['payload']['headers']
