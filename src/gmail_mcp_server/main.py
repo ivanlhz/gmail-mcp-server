@@ -155,6 +155,20 @@ def trash_email(email_id: str):
         return f'Error: {error}'
 
 @mcp.tool()
+def trash_emails(email_ids: List[str]):
+    """
+    Thrash a list of emails.
+    Args:
+        email_ids: email ids to move to the trash
+    """
+    try:
+        for email_id in email_ids:
+            service.trash_message(email_id)
+        return 'All emails have been trashed'
+    except Exception as error:
+        return f'Error: {error}'
+
+@mcp.tool()
 def get_all_emails_ids_by_query(query: str, max_results: int, next_page_token: str = None):
     """Get a list of emails details from gmail paginated results.
     Args:
