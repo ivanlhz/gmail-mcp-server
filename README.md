@@ -83,7 +83,7 @@ El servidor expone las siguientes tools MCP para interactuar con Gmail:
 ## Instalación local del paquete
 Instala el paquete en tu entorno:
 ```bash
-uv pip install dist/gmail_mcp_server-0.1.0-py3-none-any.whl
+uv pip install dist/gmail_mcp_server-0.1.1-py3-none-any.whl
 ```
 (Asegúrate de ajustar el nombre del archivo `.whl` si cambia la versión.)
 
