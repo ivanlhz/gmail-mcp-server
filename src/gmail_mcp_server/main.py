@@ -2,7 +2,7 @@ from typing import List
 from mcp.server.fastmcp import FastMCP
 
 from gmail.auth import authenticate_gmail
-from gmail.models.label_model import GmailLabel, LabelColor
+from gmail.models  import GmailLabel, LabelColor
 from gmail.service import GmailService
 
 # Initialize FastMCP server

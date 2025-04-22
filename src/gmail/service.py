@@ -5,10 +5,10 @@ Service that:
 - Decode messages content
 """
 import base64
-from typing import List, Dict, Any
+from typing import List
 from googleapiclient.discovery import Resource
 
-from gmail.models.label_model import GmailLabel
+from gmail.models import GmailLabel
 
 
 class GmailService:
